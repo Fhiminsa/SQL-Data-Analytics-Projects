@@ -14,4 +14,5 @@ SELECT
 FROM Match AS m
 LEFT JOIN Team AS t
 on m.away_team_api_id = t.team_api_id
+-- Filter for Barcelona as the home team
 WHERE m.home_team_api_id = 8634;
