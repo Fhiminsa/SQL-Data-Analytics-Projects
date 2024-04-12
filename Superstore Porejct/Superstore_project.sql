@@ -181,3 +181,41 @@ select "Segment",
 from superstore_clean sc 
 group by "Segment"
 order by total_profit desc;
+
+--How many customers do we have (unique customer IDs) in total and how much per region and state?--
+select COUNT (distinct "Customer_ID") as Total_Customer
+from superstore_clean sc 
+
+--Regonally--
+select "Region",  
+		COUNT (distinct "Customer_ID") as Total_Customer
+from superstore_clean sc 
+group by "Region"
+order by Total_Customer desc;
+
+--by state--
+select "State",  
+		COUNT (distinct "Customer_ID") as Total_Customer
+from superstore_clean sc 
+group by "State"
+order by Total_Customer desc;
+
+--What customers spent the most with us? That is generated the most sales--
+select "Customer_ID",
+		sum("Sales")  as total_sales,
+		sum("Profit")  as total_profit
+from superstore_clean sc 
+group by "Customer_ID"
+order by total_sales desc 
+limit 15;
+
+--Average shipping time per class and in total--
+select round(avg("Ship_Date" - "Order_Date"), 1) as avg_shipping_time
+from superstore_clean sc 
+
+--The shipping time in each shipping mode--
+select "Ship_Mode",
+		round(avg("Ship_Date" - "Order_Date"), 1) as avg_shipping_time
+from superstore_clean sc
+group by "Ship_Mode"
+order by avg_shipping_time 
